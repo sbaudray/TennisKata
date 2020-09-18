@@ -1,7 +1,5 @@
 import { TennisGame } from "./TennisGame";
 
-let scores = ["Love", "Fifteen", "Thirty", "Forty"];
-
 class Player {
   name: string;
   points = 0;
@@ -46,19 +44,47 @@ export class TennisGame1 implements TennisGame {
     }
   }
 
-  winOrAdvantage() {
-    return this.player1.points >= 4 || this.player2.points >= 4;
+  advantage() {
+    return this.somePlayerAboveForty() && this.pointsDiffEqualsOne();
   }
 
-  winOrAdvantageScore() {
-    const minusResult: number = this.player1.points - this.player2.points;
-    if (minusResult === 1) return `Advantage ${this.player1.name}`;
-    else if (minusResult === -1) return `Advantage ${this.player2.name}`;
-    else if (minusResult >= 2) return `Win for ${this.player1.name}`;
+  advantageScore() {
+    if (this.player1.points > this.player2.points)
+      return `Advantage ${this.player1.name}`;
+
+    return `Advantage ${this.player2.name}`;
+  }
+
+  somePlayerAboveForty() {
+    return this.player1.points > 3 || this.player2.points > 3;
+  }
+
+  pointsDiffAboveOne() {
+    let diff = this.player1.points - this.player2.points;
+
+    return Math.abs(diff) > 1;
+  }
+
+  pointsDiffEqualsOne() {
+    let diff = this.player1.points - this.player2.points;
+
+    return Math.abs(diff) === 1;
+  }
+
+  win() {
+    return this.somePlayerAboveForty() && this.pointsDiffAboveOne();
+  }
+
+  winScore() {
+    if (this.player1.points > this.player2.points) {
+      return `Win for ${this.player1.name}`;
+    }
     return `Win for ${this.player2.name}`;
   }
 
   defaultScore() {
+    let scores = ["Love", "Fifteen", "Thirty", "Forty"];
+
     return scores[this.player1.points] + "-" + scores[this.player2.points];
   }
 
@@ -67,8 +93,12 @@ export class TennisGame1 implements TennisGame {
       return this.drawScore();
     }
 
-    if (this.winOrAdvantage()) {
-      return this.winOrAdvantageScore();
+    if (this.win()) {
+      return this.winScore();
+    }
+
+    if (this.advantage()) {
+      return this.advantageScore();
     }
 
     return this.defaultScore();
