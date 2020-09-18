@@ -35,6 +35,22 @@ export class TennisGame2 implements TennisGame {
     );
   }
 
+  private get advantageP2() {
+    return (
+      this.P2point > this.P1point &&
+      this.P1point >= 3 &&
+      this.P2point - this.P1point < 2
+    );
+  }
+
+  private get advantageP1() {
+    return (
+      this.P1point > this.P2point &&
+      this.P2point >= 3 &&
+      this.P1point - this.P2point < 2
+    );
+  }
+
   getScore(): string {
     if (this.deuce) return "Deuce";
 
@@ -62,19 +78,11 @@ export class TennisGame2 implements TennisGame {
       return this.P1res + "-" + this.P2res;
     }
 
-    if (
-      this.P1point > this.P2point &&
-      this.P2point >= 3 &&
-      this.P1point - this.P2point < 2
-    ) {
+    if (this.advantageP1) {
       return "Advantage player1";
     }
 
-    if (
-      this.P2point > this.P1point &&
-      this.P1point >= 3 &&
-      this.P2point - this.P1point < 2
-    ) {
+    if (this.advantageP2) {
       return "Advantage player2";
     }
   }
