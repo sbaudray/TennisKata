@@ -15,7 +15,7 @@ export class TennisGame3 implements TennisGame {
     return this.p1 > this.p2;
   }
 
-  get p1Diff() {
+  get pointsDiff() {
     return Math.abs(this.p1 - this.p2);
   }
 
@@ -43,7 +43,7 @@ export class TennisGame3 implements TennisGame {
 
     let winningPlayerName = this.p1AboveP2 ? this.p1N : this.p2N;
 
-    return this.p1Diff === 1
+    return this.pointsDiff === 1
       ? "Advantage " + winningPlayerName
       : "Win for " + winningPlayerName;
   }
