@@ -1,5 +1,7 @@
 import { TennisGame } from "./TennisGame";
 
+let scores = ["Love", "Fifteen", "Thirty", "Forty"];
+
 export class TennisGame1 implements TennisGame {
   private m_score1: number = 0;
   private m_score2: number = 0;
@@ -59,20 +61,8 @@ export class TennisGame1 implements TennisGame {
           score += "-";
           tempScore = this.m_score2;
         }
-        switch (tempScore) {
-          case 0:
-            score += "Love";
-            break;
-          case 1:
-            score += "Fifteen";
-            break;
-          case 2:
-            score += "Thirty";
-            break;
-          case 3:
-            score += "Forty";
-            break;
-        }
+
+        score += scores[tempScore];
       }
     }
     return score;
