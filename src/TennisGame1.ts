@@ -48,23 +48,25 @@ export class TennisGame1 implements TennisGame {
   }
 
   getScore(): string {
-    let score: string = "";
-    let tempScore: number = 0;
     if (this.equality()) {
       return this.equalityScore();
     } else if (this.winOrAdvantage()) {
       return this.winOrAdvantageScore();
-    } else {
-      for (let i = 1; i < 3; i++) {
-        if (i === 1) tempScore = this.m_score1;
-        else {
-          score += "-";
-          tempScore = this.m_score2;
-        }
-
-        score += scores[tempScore];
-      }
     }
+
+    let score: string = "";
+    let tempScore: number = 0;
+
+    for (let i = 1; i < 3; i++) {
+      if (i === 1) tempScore = this.m_score1;
+      else {
+        score += "-";
+        tempScore = this.m_score2;
+      }
+
+      score += scores[tempScore];
+    }
+
     return score;
   }
 }
