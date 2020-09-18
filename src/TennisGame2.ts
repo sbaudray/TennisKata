@@ -34,19 +34,13 @@ export class TennisGame2 implements TennisGame {
       return scores[this.P1point] + "-All";
     }
 
-    if (this.P1point > 0 && this.P2point === 0) {
+    if (
+      (this.P1point > 0 && this.P2point === 0) ||
+      (this.P2point > 0 && this.P1point === 0)
+    ) {
       this.P1res = scores[this.P1point];
-
       this.P2res = scores[this.P2point];
-      score = this.P1res + "-" + this.P2res;
-    }
 
-    if (this.P2point > 0 && this.P1point === 0) {
-      if (this.P2point === 1) this.P2res = "Fifteen";
-      if (this.P2point === 2) this.P2res = "Thirty";
-      if (this.P2point === 3) this.P2res = "Forty";
-
-      this.P1res = "Love";
       score = this.P1res + "-" + this.P2res;
     }
 
