@@ -7,9 +7,11 @@ export class TennisGame2 implements TennisGame {
   P2point: number = 0;
 
   private player1Name: string;
+  private player2Name: string;
 
-  constructor(player1Name: string) {
+  constructor(player1Name: string, player2Name: string) {
     this.player1Name = player1Name;
+    this.player2Name = player2Name;
   }
 
   private get draw() {
@@ -22,13 +24,13 @@ export class TennisGame2 implements TennisGame {
 
   private get p1Wins() {
     return (
-      this.P2point >= 4 && this.P1point >= 0 && this.P2point - this.P1point >= 2
+      this.P1point >= 4 && this.P2point >= 0 && this.P1point - this.P2point >= 2
     );
   }
 
   private get p2Wins() {
     return (
-      this.P1point >= 4 && this.P2point >= 0 && this.P1point - this.P2point >= 2
+      this.P2point >= 4 && this.P1point >= 0 && this.P2point - this.P1point >= 2
     );
   }
 
@@ -56,11 +58,11 @@ export class TennisGame2 implements TennisGame {
     }
 
     if (this.p1Wins) {
-      return "Win for player2";
+      return `Win for ${this.player1Name}`;
     }
 
     if (this.p2Wins) {
-      return "Win for player1";
+      return `Win for ${this.player2Name}`;
     }
 
     if (this.advantageP1) {
