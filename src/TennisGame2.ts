@@ -1,10 +1,8 @@
 import { TennisGame } from "./TennisGame";
 
-let scores = ["Love", "Fifteen", "Thirty", "Forty"];
-
 export class TennisGame2 implements TennisGame {
-  P1point: number = 0;
-  P2point: number = 0;
+  private P1point: number = 0;
+  private P2point: number = 0;
 
   private player1Name: string;
   private player2Name: string;
@@ -14,48 +12,85 @@ export class TennisGame2 implements TennisGame {
     this.player2Name = player2Name;
   }
 
-  private get draw() {
-    return this.pointsDiffNull && this.somePlayerBelowForty;
+  getScore() {
+    let ruler = TennisRuler.new(this.P1point, this.P2point);
+
+    let scores = ["Love", "Fifteen", "Thirty", "Forty"];
+
+    if (ruler.deuce) return "Deuce";
+
+    if (ruler.draw) {
+      return scores[this.P1point] + "-All";
+    }
+
+    if (ruler.p1Wins) {
+      return `Win for ${this.player1Name}`;
+    }
+
+    if (ruler.p2Wins) {
+      return `Win for ${this.player2Name}`;
+    }
+
+    if (ruler.advantageP1) {
+      return `Advantage ${this.player1Name}`;
+    }
+
+    if (ruler.advantageP2) {
+      return `Advantage ${this.player2Name}`;
+    }
+
+    return scores[this.P1point] + "-" + scores[this.P2point];
   }
 
-  private get deuce() {
-    return this.pointsDiffNull && this.somePlayerAboveThirty;
+  wonPoint(player: string) {
+    if (player === this.player1Name) this.P1Score();
+    else this.P2Score();
   }
 
-  private get p1Diff() {
-    return this.P1point - this.P2point;
+  private P1Score() {
+    this.P1point++;
   }
 
-  private get p2Diff() {
-    return this.P2point - this.P1point;
+  private P2Score() {
+    this.P2point++;
+  }
+}
+
+class TennisRuler {
+  P1point: number;
+  P2point: number;
+
+  private constructor(p1Points: number, p2Points: number) {
+    this.P1point = p1Points;
+    this.P2point = p2Points;
+  }
+
+  static new(p1Points: number, p2Points: number) {
+    return new TennisRuler(p1Points, p2Points);
+  }
+
+  private get pointsDiff() {
+    return Math.abs(this.P1point - this.P2point);
+  }
+
+  private get p1AboveP2() {
+    return this.P1point > this.P2point;
+  }
+
+  private get p2AboveP1() {
+    return this.P2point > this.P1point;
   }
 
   private get pointsDiffNull() {
     return this.P1point === this.P2point;
   }
 
-  private get p1DiffAboveOne() {
-    return this.p1Diff >= 2;
+  private get pointsDiffAboveOne() {
+    return this.pointsDiff >= 2;
   }
 
-  private get p2DiffAboveOne() {
-    return this.p2Diff >= 2;
-  }
-
-  private get p1DiffEqualsOne() {
-    return this.p1Diff === 1;
-  }
-
-  private get p2DiffEqualsOne() {
-    return this.p2Diff === 1;
-  }
-
-  private get p1Wins() {
-    return this.somePlayerAboveForty && this.p1DiffAboveOne;
-  }
-
-  private get p2Wins() {
-    return this.somePlayerAboveForty && this.p2DiffAboveOne;
+  private get pointsDiffEqualsOne() {
+    return this.pointsDiff === 1;
   }
 
   private get somePlayerAboveForty() {
@@ -70,50 +105,35 @@ export class TennisGame2 implements TennisGame {
     return this.P1point >= 3 || this.P2point >= 3;
   }
 
-  private get advantageP1() {
-    return this.somePlayerAboveForty && this.p1DiffEqualsOne;
+  get draw() {
+    return this.pointsDiffNull && this.somePlayerBelowForty;
   }
 
-  private get advantageP2() {
-    return this.somePlayerAboveForty && this.p2DiffEqualsOne;
+  get deuce() {
+    return this.pointsDiffNull && this.somePlayerAboveThirty;
   }
 
-  getScore(): string {
-    if (this.deuce) return "Deuce";
-
-    if (this.draw) {
-      return scores[this.P1point] + "-All";
-    }
-
-    if (this.p1Wins) {
-      return `Win for ${this.player1Name}`;
-    }
-
-    if (this.p2Wins) {
-      return `Win for ${this.player2Name}`;
-    }
-
-    if (this.advantageP1) {
-      return `Advantage ${this.player1Name}`;
-    }
-
-    if (this.advantageP2) {
-      return `Advantage ${this.player2Name}`;
-    }
-
-    return scores[this.P1point] + "-" + scores[this.P2point];
+  get p1Wins() {
+    return (
+      this.somePlayerAboveForty && this.p1AboveP2 && this.pointsDiffAboveOne
+    );
   }
 
-  P1Score(): void {
-    this.P1point++;
+  get p2Wins() {
+    return (
+      this.somePlayerAboveForty && this.p2AboveP1 && this.pointsDiffAboveOne
+    );
   }
 
-  P2Score(): void {
-    this.P2point++;
+  get advantageP1() {
+    return (
+      this.somePlayerAboveForty && this.p1AboveP2 && this.pointsDiffEqualsOne
+    );
   }
 
-  wonPoint(player: string): void {
-    if (player === this.player1Name) this.P1Score();
-    else this.P2Score();
+  get advantageP2() {
+    return (
+      this.somePlayerAboveForty && this.p2AboveP1 && this.pointsDiffEqualsOne
+    );
   }
 }
