@@ -14,7 +14,7 @@ export class TennisGame1 implements TennisGame {
   }
 
   wonPoint(playerName: string): void {
-    if (playerName === "player1") this.m_score1 += 1;
+    if (playerName === this.player1Name) this.m_score1 += 1;
     else this.m_score2 += 1;
   }
 
@@ -41,10 +41,10 @@ export class TennisGame1 implements TennisGame {
 
   winOrAdvantageScore() {
     const minusResult: number = this.m_score1 - this.m_score2;
-    if (minusResult === 1) return "Advantage player1";
-    else if (minusResult === -1) return "Advantage player2";
-    else if (minusResult >= 2) return "Win for player1";
-    return "Win for player2";
+    if (minusResult === 1) return `Advantage ${this.player1Name}`;
+    else if (minusResult === -1) return `Advantage ${this.player2Name}`;
+    else if (minusResult >= 2) return `Win for ${this.player1Name}`;
+    return `Win for ${this.player2Name}`;
   }
 
   defaultScore() {
