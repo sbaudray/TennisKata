@@ -29,11 +29,11 @@ export class TennisGame1 implements TennisGame {
     else this.player2.scorePoint();
   }
 
-  equality() {
+  draw() {
     return this.player1.points === this.player2.points;
   }
 
-  equalityScore() {
+  drawScore() {
     switch (this.player1.points) {
       case 0:
         return "Love-All";
@@ -63,8 +63,8 @@ export class TennisGame1 implements TennisGame {
   }
 
   getScore(): string {
-    if (this.equality()) {
-      return this.equalityScore();
+    if (this.draw()) {
+      return this.drawScore();
     }
 
     if (this.winOrAdvantage()) {
