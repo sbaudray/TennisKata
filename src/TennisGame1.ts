@@ -47,6 +47,10 @@ export class TennisGame1 implements TennisGame {
     return "Win for player2";
   }
 
+  defaultScore() {
+    return scores[this.m_score1] + "-" + scores[this.m_score2];
+  }
+
   getScore(): string {
     if (this.equality()) {
       return this.equalityScore();
@@ -56,14 +60,6 @@ export class TennisGame1 implements TennisGame {
       return this.winOrAdvantageScore();
     }
 
-    let tempScore: number = this.m_score1;
-    let score: string = scores[tempScore];
-
-    score += "-";
-    tempScore = this.m_score2;
-
-    score += scores[tempScore];
-
-    return score;
+    return this.defaultScore();
   }
 }
