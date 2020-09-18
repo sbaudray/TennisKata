@@ -15,6 +15,10 @@ export class TennisGame3 implements TennisGame {
     return this.p1 > this.p2;
   }
 
+  get p1Diff() {
+    return this.p1 - this.p2;
+  }
+
   getScore(): string {
     let s: string;
     if (this.p1 < 4 && this.p2 < 4 && !(this.p1 + this.p2 === 6)) {
@@ -24,7 +28,7 @@ export class TennisGame3 implements TennisGame {
     } else {
       if (this.p1 === this.p2) return "Deuce";
       s = this.p1AboveP2 ? this.p1N : this.p2N;
-      return (this.p1 - this.p2) * (this.p1 - this.p2) === 1
+      return this.p1Diff * this.p1Diff === 1
         ? "Advantage " + s
         : "Win for " + s;
     }
