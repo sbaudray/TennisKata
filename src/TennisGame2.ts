@@ -1,5 +1,7 @@
 import { TennisGame } from "./TennisGame";
 
+let scores = ["Love", "Fifteen", "Thirty", "Forty"];
+
 export class TennisGame2 implements TennisGame {
   P1point: number = 0;
   P2point: number = 0;
@@ -15,22 +17,27 @@ export class TennisGame2 implements TennisGame {
     this.player2Name = player2Name;
   }
 
+  private get draw() {
+    return this.P1point === this.P2point && this.P1point < 3;
+  }
+
+  private get deuce() {
+    return this.P1point === this.P2point && this.P1point >= 3;
+  }
+
   getScore(): string {
     let score: string = "";
-    if (this.P1point === this.P2point && this.P1point < 4) {
-      if (this.P1point === 0) score = "Love";
-      if (this.P1point === 1) score = "Fifteen";
-      if (this.P1point === 2) score = "Thirty";
-      score += "-All";
+
+    if (this.deuce) return "Deuce";
+
+    if (this.draw) {
+      return scores[this.P1point] + "-All";
     }
-    if (this.P1point === this.P2point && this.P1point >= 3) score = "Deuce";
 
     if (this.P1point > 0 && this.P2point === 0) {
-      if (this.P1point === 1) this.P1res = "Fifteen";
-      if (this.P1point === 2) this.P1res = "Thirty";
-      if (this.P1point === 3) this.P1res = "Forty";
+      this.P1res = scores[this.P1point];
 
-      this.P2res = "Love";
+      this.P2res = scores[this.P2point];
       score = this.P1res + "-" + this.P2res;
     }
     if (this.P2point > 0 && this.P1point === 0) {
