@@ -66,11 +66,11 @@ export class TennisGame2 implements TennisGame {
     }
 
     if (this.advantageP1) {
-      return "Advantage player1";
+      return `Advantage ${this.player1Name}`;
     }
 
     if (this.advantageP2) {
-      return "Advantage player2";
+      return `Advantage ${this.player2Name}`;
     }
 
     return scores[this.P1point] + "-" + scores[this.P2point];
