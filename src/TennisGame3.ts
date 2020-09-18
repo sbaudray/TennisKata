@@ -11,34 +11,6 @@ export class TennisGame3 implements TennisGame {
     this.p2N = p2N;
   }
 
-  get p1AboveP2() {
-    return this.p1 > this.p2;
-  }
-
-  get pointsDiff() {
-    return Math.abs(this.p1 - this.p2);
-  }
-
-  get somePlayerAboveByOnePoint() {
-    return this.pointsDiff === 1;
-  }
-
-  get playingBelowAdvantage() {
-    return this.p1 < 4 && this.p2 < 4;
-  }
-
-  get deuce() {
-    return this.draw && this.p1 >= 3;
-  }
-
-  get draw() {
-    return this.p1 === this.p2;
-  }
-
-  get winningPlayerName() {
-    return this.p1AboveP2 ? this.p1N : this.p2N;
-  }
-
   getScore(): string {
     if (this.deuce) return "Deuce";
 
@@ -58,5 +30,33 @@ export class TennisGame3 implements TennisGame {
   wonPoint(playerName: string): void {
     if (playerName === "player1") this.p1 += 1;
     else this.p2 += 1;
+  }
+
+  private get p1AboveP2() {
+    return this.p1 > this.p2;
+  }
+
+  private get pointsDiff() {
+    return Math.abs(this.p1 - this.p2);
+  }
+
+  private get somePlayerAboveByOnePoint() {
+    return this.pointsDiff === 1;
+  }
+
+  private get playingBelowAdvantage() {
+    return this.p1 < 4 && this.p2 < 4;
+  }
+
+  private get deuce() {
+    return this.draw && this.p1 >= 3;
+  }
+
+  private get draw() {
+    return this.p1 === this.p2;
+  }
+
+  private get winningPlayerName() {
+    return this.p1AboveP2 ? this.p1N : this.p2N;
   }
 }
