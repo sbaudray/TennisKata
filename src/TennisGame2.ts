@@ -6,9 +6,6 @@ export class TennisGame2 implements TennisGame {
   P1point: number = 0;
   P2point: number = 0;
 
-  P1res: string = "";
-  P2res: string = "";
-
   private player1Name: string;
 
   constructor(player1Name: string) {
@@ -74,10 +71,7 @@ export class TennisGame2 implements TennisGame {
       return "Advantage player2";
     }
 
-    this.P1res = scores[this.P1point];
-    this.P2res = scores[this.P2point];
-
-    return this.P1res + "-" + this.P2res;
+    return scores[this.P1point] + "-" + scores[this.P2point];
   }
 
   P1Score(): void {
