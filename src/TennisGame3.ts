@@ -19,9 +19,17 @@ export class TennisGame3 implements TennisGame {
     return this.p1 - this.p2;
   }
 
+  get playingBelowForty() {
+    return this.p1 < 4 && this.p2 < 4;
+  }
+
+  get notDeuce() {
+    return !(this.p1 + this.p2 === 6);
+  }
+
   getScore(): string {
     let s: string;
-    if (this.p1 < 4 && this.p2 < 4 && !(this.p1 + this.p2 === 6)) {
+    if (this.playingBelowForty && this.notDeuce) {
       const p: string[] = ["Love", "Fifteen", "Thirty", "Forty"];
       s = p[this.p1];
       return this.p1 === this.p2 ? s + "-All" : s + "-" + p[this.p2];
