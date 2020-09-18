@@ -50,22 +50,19 @@ export class TennisGame1 implements TennisGame {
   getScore(): string {
     if (this.equality()) {
       return this.equalityScore();
-    } else if (this.winOrAdvantage()) {
+    }
+
+    if (this.winOrAdvantage()) {
       return this.winOrAdvantageScore();
     }
 
-    let score: string = "";
-    let tempScore: number = 0;
+    let tempScore: number = this.m_score1;
+    let score: string = scores[tempScore];
 
-    for (let i = 1; i < 3; i++) {
-      if (i === 1) tempScore = this.m_score1;
-      else {
-        score += "-";
-        tempScore = this.m_score2;
-      }
+    score += "-";
+    tempScore = this.m_score2;
 
-      score += scores[tempScore];
-    }
+    score += scores[tempScore];
 
     return score;
   }
