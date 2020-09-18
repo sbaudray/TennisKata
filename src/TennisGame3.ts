@@ -19,7 +19,7 @@ export class TennisGame3 implements TennisGame {
     return this.p1 - this.p2;
   }
 
-  get playingBelowForty() {
+  get playingBelowAdvantage() {
     return this.p1 < 4 && this.p2 < 4;
   }
 
@@ -32,14 +32,13 @@ export class TennisGame3 implements TennisGame {
   }
 
   getScore(): string {
-    let s: string;
-    if (this.playingBelowForty && this.notDeuce) {
+    if (this.playingBelowAdvantage && this.notDeuce) {
       const p: string[] = ["Love", "Fifteen", "Thirty", "Forty"];
-      s = p[this.p1];
+      let s = p[this.p1];
       return this.draw ? s + "-All" : s + "-" + p[this.p2];
     } else {
       if (this.draw) return "Deuce";
-      s = this.p1AboveP2 ? this.p1N : this.p2N;
+      let s = this.p1AboveP2 ? this.p1N : this.p2N;
       return this.p1Diff ** 2 === 1 ? "Advantage " + s : "Win for " + s;
     }
   }
