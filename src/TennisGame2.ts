@@ -66,18 +66,6 @@ export class TennisGame2 implements TennisGame {
       return "Win for player1";
     }
 
-    if (
-      (this.P1point > 0 && this.P2point === 0) ||
-      (this.P2point > 0 && this.P1point === 0) ||
-      (this.P1point > this.P2point && this.P1point < 4) ||
-      (this.P2point > this.P1point && this.P2point < 4)
-    ) {
-      this.P1res = scores[this.P1point];
-      this.P2res = scores[this.P2point];
-
-      return this.P1res + "-" + this.P2res;
-    }
-
     if (this.advantageP1) {
       return "Advantage player1";
     }
@@ -85,6 +73,11 @@ export class TennisGame2 implements TennisGame {
     if (this.advantageP2) {
       return "Advantage player2";
     }
+
+    this.P1res = scores[this.P1point];
+    this.P2res = scores[this.P2point];
+
+    return this.P1res + "-" + this.P2res;
   }
 
   P1Score(): void {
