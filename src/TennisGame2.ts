@@ -15,11 +15,15 @@ export class TennisGame2 implements TennisGame {
   }
 
   private get draw() {
-    return this.P1point === this.P2point && this.P1point < 3;
+    return this.pointsDiffNull && this.somePlayerBelowForty;
   }
 
   private get deuce() {
-    return this.P1point === this.P2point && this.P1point >= 3;
+    return this.pointsDiffNull && this.somePlayerAboveThirty;
+  }
+
+  private get pointsDiffNull() {
+    return this.P1point === this.P2point;
   }
 
   private get p1AboveForty() {
@@ -56,6 +60,14 @@ export class TennisGame2 implements TennisGame {
 
   private get somePlayerAboveForty() {
     return this.P1point > 3 || this.P2point > 3;
+  }
+
+  private get somePlayerBelowForty() {
+    return this.P1point < 3 || this.P2point < 3;
+  }
+
+  private get somePlayerAboveThirty() {
+    return this.P1point >= 3 || this.P2point >= 3;
   }
 
   private get advantageP1() {
