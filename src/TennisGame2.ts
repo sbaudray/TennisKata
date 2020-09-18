@@ -24,12 +24,26 @@ export class TennisGame2 implements TennisGame {
   }
 
   getScore(): string {
-    let score: string = "";
-
     if (this.deuce) return "Deuce";
 
     if (this.draw) {
       return scores[this.P1point] + "-All";
+    }
+
+    if (
+      this.P2point >= 4 &&
+      this.P1point >= 0 &&
+      this.P2point - this.P1point >= 2
+    ) {
+      return "Win for player2";
+    }
+
+    if (
+      this.P1point >= 4 &&
+      this.P2point >= 0 &&
+      this.P1point - this.P2point >= 2
+    ) {
+      return "Win for player1";
     }
 
     if (
@@ -41,7 +55,7 @@ export class TennisGame2 implements TennisGame {
       this.P1res = scores[this.P1point];
       this.P2res = scores[this.P2point];
 
-      score = this.P1res + "-" + this.P2res;
+      return this.P1res + "-" + this.P2res;
     }
 
     if (
@@ -49,7 +63,7 @@ export class TennisGame2 implements TennisGame {
       this.P2point >= 3 &&
       this.P1point - this.P2point < 2
     ) {
-      return (score = "Advantage player1");
+      return "Advantage player1";
     }
 
     if (
@@ -59,22 +73,6 @@ export class TennisGame2 implements TennisGame {
     ) {
       return "Advantage player2";
     }
-
-    if (
-      this.P1point >= 4 &&
-      this.P2point >= 0 &&
-      this.P1point - this.P2point >= 2
-    ) {
-      score = "Win for player1";
-    }
-    if (
-      this.P2point >= 4 &&
-      this.P1point >= 0 &&
-      this.P2point - this.P1point >= 2
-    ) {
-      score = "Win for player2";
-    }
-    return score;
   }
 
   P1Score(): void {
