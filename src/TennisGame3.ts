@@ -35,14 +35,17 @@ export class TennisGame3 implements TennisGame {
     if (this.playingBelowAdvantage && this.notDeuce) {
       let scores: string[] = ["Love", "Fifteen", "Thirty", "Forty"];
       let p1Score = scores[this.p1];
+
       return this.draw ? p1Score + "-All" : p1Score + "-" + scores[this.p2];
-    } else {
-      if (this.draw) return "Deuce";
-      let winningPlayerName = this.p1AboveP2 ? this.p1N : this.p2N;
-      return this.p1Diff ** 2 === 1
-        ? "Advantage " + winningPlayerName
-        : "Win for " + winningPlayerName;
     }
+
+    if (this.draw) return "Deuce";
+
+    let winningPlayerName = this.p1AboveP2 ? this.p1N : this.p2N;
+
+    return this.p1Diff ** 2 === 1
+      ? "Advantage " + winningPlayerName
+      : "Win for " + winningPlayerName;
   }
 
   wonPoint(playerName: string): void {
