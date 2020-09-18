@@ -33,13 +33,15 @@ export class TennisGame3 implements TennisGame {
 
   getScore(): string {
     if (this.playingBelowAdvantage && this.notDeuce) {
-      const p: string[] = ["Love", "Fifteen", "Thirty", "Forty"];
-      let s = p[this.p1];
-      return this.draw ? s + "-All" : s + "-" + p[this.p2];
+      let scores: string[] = ["Love", "Fifteen", "Thirty", "Forty"];
+      let p1Score = scores[this.p1];
+      return this.draw ? p1Score + "-All" : p1Score + "-" + scores[this.p2];
     } else {
       if (this.draw) return "Deuce";
-      let s = this.p1AboveP2 ? this.p1N : this.p2N;
-      return this.p1Diff ** 2 === 1 ? "Advantage " + s : "Win for " + s;
+      let winningPlayerName = this.p1AboveP2 ? this.p1N : this.p2N;
+      return this.p1Diff ** 2 === 1
+        ? "Advantage " + winningPlayerName
+        : "Win for " + winningPlayerName;
     }
   }
 
