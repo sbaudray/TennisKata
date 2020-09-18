@@ -10,11 +10,9 @@ export class TennisGame2 implements TennisGame {
   P2res: string = "";
 
   private player1Name: string;
-  private player2Name: string;
 
-  constructor(player1Name: string, player2Name: string) {
+  constructor(player1Name: string) {
     this.player1Name = player1Name;
-    this.player2Name = player2Name;
   }
 
   private get draw() {
@@ -80,7 +78,7 @@ export class TennisGame2 implements TennisGame {
   }
 
   wonPoint(player: string): void {
-    if (player === "player1") this.P1Score();
+    if (player === this.player1Name) this.P1Score();
     else this.P2Score();
   }
 }
