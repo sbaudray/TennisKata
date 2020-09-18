@@ -2,28 +2,39 @@ import { TennisGame } from "./TennisGame";
 
 let scores = ["Love", "Fifteen", "Thirty", "Forty"];
 
+class Player {
+  name: string;
+  points = 0;
+
+  constructor(name) {
+    this.name = name;
+  }
+
+  scorePoint() {
+    this.points += 1;
+  }
+}
+
 export class TennisGame1 implements TennisGame {
-  private m_score1: number = 0;
-  private m_score2: number = 0;
-  private player1Name: string;
-  private player2Name: string;
+  player1: Player;
+  player2: Player;
 
   constructor(player1Name: string, player2Name: string) {
-    this.player1Name = player1Name;
-    this.player2Name = player2Name;
+    this.player1 = new Player(player1Name);
+    this.player2 = new Player(player2Name);
   }
 
   wonPoint(playerName: string): void {
-    if (playerName === this.player1Name) this.m_score1 += 1;
-    else this.m_score2 += 1;
+    if (playerName === this.player1.name) this.player1.scorePoint();
+    else this.player2.scorePoint();
   }
 
   equality() {
-    return this.m_score1 === this.m_score2;
+    return this.player1.points === this.player2.points;
   }
 
   equalityScore() {
-    switch (this.m_score1) {
+    switch (this.player1.points) {
       case 0:
         return "Love-All";
       case 1:
@@ -36,19 +47,19 @@ export class TennisGame1 implements TennisGame {
   }
 
   winOrAdvantage() {
-    return this.m_score1 >= 4 || this.m_score2 >= 4;
+    return this.player1.points >= 4 || this.player2.points >= 4;
   }
 
   winOrAdvantageScore() {
-    const minusResult: number = this.m_score1 - this.m_score2;
-    if (minusResult === 1) return `Advantage ${this.player1Name}`;
-    else if (minusResult === -1) return `Advantage ${this.player2Name}`;
-    else if (minusResult >= 2) return `Win for ${this.player1Name}`;
-    return `Win for ${this.player2Name}`;
+    const minusResult: number = this.player1.points - this.player2.points;
+    if (minusResult === 1) return `Advantage ${this.player1.name}`;
+    else if (minusResult === -1) return `Advantage ${this.player2.name}`;
+    else if (minusResult >= 2) return `Win for ${this.player1.name}`;
+    return `Win for ${this.player2.name}`;
   }
 
   defaultScore() {
-    return scores[this.m_score1] + "-" + scores[this.m_score2];
+    return scores[this.player1.points] + "-" + scores[this.player2.points];
   }
 
   getScore(): string {
