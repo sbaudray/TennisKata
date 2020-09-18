@@ -38,6 +38,14 @@ export class TennisGame2 implements TennisGame {
     return this.P2point - this.P1point >= 2;
   }
 
+  private get p1DiffEqualsOne() {
+    return this.P1point - this.P2point === 1;
+  }
+
+  private get p2DiffEqualsOne() {
+    return this.P2point - this.P1point === 1;
+  }
+
   private get p1Wins() {
     return this.p1AboveForty && this.p1DiffAboveOne;
   }
@@ -46,20 +54,16 @@ export class TennisGame2 implements TennisGame {
     return this.p2AboveForty && this.p2DiffAboveOne;
   }
 
-  private get advantageP2() {
-    return (
-      this.P2point > this.P1point &&
-      this.P1point >= 3 &&
-      this.P2point - this.P1point < 2
-    );
+  private get somePlayerAboveForty() {
+    return this.P1point > 3 || this.P2point > 3;
   }
 
   private get advantageP1() {
-    return (
-      this.P1point > this.P2point &&
-      this.P2point >= 3 &&
-      this.P1point - this.P2point < 2
-    );
+    return this.somePlayerAboveForty && this.p1DiffEqualsOne;
+  }
+
+  private get advantageP2() {
+    return this.somePlayerAboveForty && this.p2DiffEqualsOne;
   }
 
   getScore(): string {
