@@ -23,6 +23,18 @@ export class TennisGame2 implements TennisGame {
     return this.P1point === this.P2point && this.P1point >= 3;
   }
 
+  private get p1Wins() {
+    return (
+      this.P2point >= 4 && this.P1point >= 0 && this.P2point - this.P1point >= 2
+    );
+  }
+
+  private get p2Wins() {
+    return (
+      this.P1point >= 4 && this.P2point >= 0 && this.P1point - this.P2point >= 2
+    );
+  }
+
   getScore(): string {
     if (this.deuce) return "Deuce";
 
@@ -30,19 +42,11 @@ export class TennisGame2 implements TennisGame {
       return scores[this.P1point] + "-All";
     }
 
-    if (
-      this.P2point >= 4 &&
-      this.P1point >= 0 &&
-      this.P2point - this.P1point >= 2
-    ) {
+    if (this.p1Wins) {
       return "Win for player2";
     }
 
-    if (
-      this.P1point >= 4 &&
-      this.P2point >= 0 &&
-      this.P1point - this.P2point >= 2
-    ) {
+    if (this.p2Wins) {
       return "Win for player1";
     }
 
