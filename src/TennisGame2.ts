@@ -22,24 +22,32 @@ export class TennisGame2 implements TennisGame {
     return this.pointsDiffNull && this.somePlayerAboveThirty;
   }
 
+  private get p1Diff() {
+    return this.P1point - this.P2point;
+  }
+
+  private get p2Diff() {
+    return this.P2point - this.P1point;
+  }
+
   private get pointsDiffNull() {
     return this.P1point === this.P2point;
   }
 
   private get p1DiffAboveOne() {
-    return this.P1point - this.P2point >= 2;
+    return this.p1Diff >= 2;
   }
 
   private get p2DiffAboveOne() {
-    return this.P2point - this.P1point >= 2;
+    return this.p2Diff >= 2;
   }
 
   private get p1DiffEqualsOne() {
-    return this.P1point - this.P2point === 1;
+    return this.p1Diff === 1;
   }
 
   private get p2DiffEqualsOne() {
-    return this.P2point - this.P1point === 1;
+    return this.p2Diff === 1;
   }
 
   private get p1Wins() {
