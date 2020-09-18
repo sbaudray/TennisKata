@@ -19,6 +19,10 @@ export class TennisGame3 implements TennisGame {
     return Math.abs(this.p1 - this.p2);
   }
 
+  get somePlayerAboveByOnePoint() {
+    return this.pointsDiff === 1;
+  }
+
   get playingBelowAdvantage() {
     return this.p1 < 4 && this.p2 < 4;
   }
@@ -31,6 +35,10 @@ export class TennisGame3 implements TennisGame {
     return this.p1 === this.p2;
   }
 
+  get winningPlayerName() {
+    return this.p1AboveP2 ? this.p1N : this.p2N;
+  }
+
   getScore(): string {
     if (this.playingBelowAdvantage && this.notDeuce) {
       let scores: string[] = ["Love", "Fifteen", "Thirty", "Forty"];
@@ -41,11 +49,9 @@ export class TennisGame3 implements TennisGame {
 
     if (this.draw) return "Deuce";
 
-    let winningPlayerName = this.p1AboveP2 ? this.p1N : this.p2N;
-
-    return this.pointsDiff === 1
-      ? "Advantage " + winningPlayerName
-      : "Win for " + winningPlayerName;
+    return this.somePlayerAboveByOnePoint
+      ? "Advantage " + this.winningPlayerName
+      : "Win for " + this.winningPlayerName;
   }
 
   wonPoint(playerName: string): void {
