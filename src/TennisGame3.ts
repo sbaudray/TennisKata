@@ -28,9 +28,7 @@ export class TennisGame3 implements TennisGame {
     } else {
       if (this.p1 === this.p2) return "Deuce";
       s = this.p1AboveP2 ? this.p1N : this.p2N;
-      return this.p1Diff * this.p1Diff === 1
-        ? "Advantage " + s
-        : "Win for " + s;
+      return this.p1Diff ** 2 === 1 ? "Advantage " + s : "Win for " + s;
     }
   }
 
